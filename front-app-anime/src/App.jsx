@@ -2,8 +2,8 @@
 import './App.css'
 import { Navbar } from './components/Navbar'
 import { Carusel } from './components/Carusel'
-import { Searchbar } from './components/Searchbar'
 import { useState } from 'react'
+import { Footer } from './components/Footer';
 
 function App() {
 
@@ -12,17 +12,16 @@ function App() {
   const onChangeAnime = (newAnime) => {
     setAnime(newAnime)
   }
-  console.log(anime)
 
   return (
     <>
-      <Navbar/>
-      <Searchbar
-        onNewAnime={ (value) => onChangeAnime(value)}
+      <Navbar
+        funcAux={value => onChangeAnime(value)}
       />
       <Carusel
         anime={anime}
       />
+      <Footer/>
     </>
   )
 }

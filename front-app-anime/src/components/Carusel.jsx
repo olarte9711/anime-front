@@ -1,24 +1,21 @@
 
 import { useRef, useState } from 'react';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import '/home/osvargas/Descargas/front-app-anime/front-app-anime/front-app-anime/src/components/styles.css';
 
-// import required modules
 import { Pagination, Navigation, Scrollbar } from 'swiper/modules';
 import { AnimeCard } from './AnimeCard';
-import { useFetchAnime } from '../hooks/useFetchAnime';
+import { getAnimeData } from '../helpers/getDataHelper';
 
 export const Carusel = ({anime}) => {
     const [swiperRef, setSwiperRef] = useState(null);
 
-    const {animes} =  useFetchAnime(anime)
+    const {animes} =  getAnimeData(anime)
 
   return (
     <>
@@ -32,10 +29,17 @@ export const Carusel = ({anime}) => {
           type: 'fraction',
           clickable: true
         }}
+        loop={false}
         scrollbar = {{ draggable:true}}
         navigation={true}
         modules={[Pagination, Navigation, Scrollbar]}
         className="mySwiper"
+        breakpoints={{
+          120: { slidesPerView: 1 },
+          480: { slidesPerView: 1},
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 }
+        }}
       >
         {
           animes.map( (anime)  => (
@@ -47,10 +51,6 @@ export const Carusel = ({anime}) => {
             </SwiperSlide>
           ))
         }
-        <SwiperSlide> <AnimeCard/> </SwiperSlide>
-        <SwiperSlide><AnimeCard/></SwiperSlide>
-        <SwiperSlide><AnimeCard/></SwiperSlide>
-        <SwiperSlide><AnimeCard/></SwiperSlide>
       </Swiper>
     </>
   );
